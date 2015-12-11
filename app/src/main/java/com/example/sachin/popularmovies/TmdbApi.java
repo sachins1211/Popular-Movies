@@ -4,7 +4,7 @@ package com.example.sachin.popularmovies;
 public class TmdbApi {
 
 
-    public static final String API_KEY = "bc7bb987b24df9d7a6ee6dd0274e7abb";
+    public static final String API_KEY = "ADD YOUR KEY HERE";
 
 
     public static String SORT_BY = "popularity.desc";
