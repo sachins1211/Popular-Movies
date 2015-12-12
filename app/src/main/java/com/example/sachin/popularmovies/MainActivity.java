@@ -1,5 +1,9 @@
 package com.example.sachin.popularmovies;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -27,12 +31,20 @@ public class MainActivity extends AppCompatActivity {
     gridAdapter gridAdapter;
     JSONArray main;
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        if (isNetworkAvailable()){
         gridView = (GridView) findViewById(R.id.gridView);
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
         gridAdapter = new gridAdapter(this);
@@ -46,6 +58,14 @@ public class MainActivity extends AppCompatActivity {
                 update();
             }
         });
+        }
+
+        else{
+            new AlertDialog.Builder(this)
+                    .setTitle("No Internet")
+                    .setMessage("Please Connect To Internet").setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        }
     }
 
     public class fetchData extends AsyncTask<Void, Void, String> {
