@@ -6,7 +6,6 @@ public class TmdbApi {
 
     public static final String API_KEY = "ADD YOUR KEY HERE";
 
-
     public static String SORT_BY = "popularity.desc";
     public static final int MIN_VOTES = 250;
     public static final String BASE_URL = "http://api.themoviedb.org/3/discover/movie?";
@@ -14,4 +13,6 @@ public class TmdbApi {
     public static final String SMALL_IMG_SIZE = "w342/";
     public static final String JSON_RESULTS_ARRAY = "results";
     public static final String JSON_POSTER_PATH = "poster_path";
+    public static final String POPULARITY_DESCENDING =  "popularity.desc";
+    public static final String VOTE_AVERAGE_DESCENDING =  "vote_average.desc";
 }

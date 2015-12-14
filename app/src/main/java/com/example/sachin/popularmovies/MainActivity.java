@@ -157,7 +157,14 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_sort_popularity) {
+            TmdbApi.SORT_BY = TmdbApi.POPULARITY_DESCENDING;
+            update();
+            return true;
+        }
+        else if (id == R.id.action_sort_rating){
+            TmdbApi.SORT_BY = TmdbApi.VOTE_AVERAGE_DESCENDING;
+            update();
             return true;
         }
 
