@@ -24,7 +24,7 @@ public class movieDetails extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final ImageView backdrop = (ImageView) findViewById(R.id.backdropView);
+        ImageView backdrop = (ImageView) findViewById(R.id.backdropView);
         ImageView poster = (ImageView) findViewById(R.id.posterView);
         TextView titleView = (TextView) findViewById(R.id.titleView);
         TextView releasedView = (TextView) findViewById(R.id.releasedView);

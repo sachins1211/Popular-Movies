@@ -64,7 +64,7 @@ public class gridAdapter extends BaseAdapter {
     }
 
     public void add(String s) {
+
         list.add(s);
     }
-
 }
