@@ -47,32 +47,34 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         if (isNetworkAvailable()){
-        gridView = (GridView) findViewById(R.id.gridView);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
-        gridAdapter = new gridAdapter(this);
+            gridView = (GridView) findViewById(R.id.gridView);
+            mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
+            gridAdapter = new gridAdapter(this);
 
-        gridView.setAdapter(gridAdapter);
-        update();
+            gridView.setAdapter(gridAdapter);
+            update();
 
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                update();
-            }
-        });
-            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    try {
-                        Intent intent = new Intent(MainActivity.this, movieDetails.class);
-                        intent.putExtra(TmdbApi.JSON_TAG, main.getJSONObject(i).toString());
-                        startActivity(intent);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                public void onRefresh() {
+                    update();
                 }
             });
+                gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        try {
+                            Intent intent = new Intent(MainActivity.this, movieDetails.class);
+                            intent.putExtra(TmdbApi.JSON_TAG, main.getJSONObject(i).toString());
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
         }
 
         else{
