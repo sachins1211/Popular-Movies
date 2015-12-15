@@ -15,4 +15,11 @@ public class TmdbApi {
     public static final String JSON_POSTER_PATH = "poster_path";
     public static final String POPULARITY_DESCENDING =  "popularity.desc";
     public static final String VOTE_AVERAGE_DESCENDING =  "vote_average.desc";
+    public static final String JSON_TAG = "JSON";
+    public static final String JSON_BACKDROP_PATH = "backdrop_path";
+    public static final String FULL_IMG_SIZE = "w500/";
+    public static final String JSON_MOVIE_TITLE = "title";
+    public static final String JSON_MOVIE_RELEASE_DATE = "release_date";
+    public static final String JSON_MOVIE_VOTE_AVERAGE = "vote_average";
+    public static final String JSON_MOVIE_OVERVIEW = "overview";
 }
