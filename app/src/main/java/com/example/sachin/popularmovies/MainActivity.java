@@ -29,12 +29,14 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+
 public class MainActivity extends AppCompatActivity {
 
     GridView gridView;
     SwipeRefreshLayout mSwipeRefreshLayout;
     gridAdapter gridAdapter;
     JSONArray main;
+
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager

@@ -12,8 +12,18 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 
 public class movieDetails extends AppCompatActivity {
+
+    @Bind(R.id.backdropView) ImageView backdrop;
+    @Bind(R.id.posterView) ImageView poster;
+    @Bind(R.id.titleView) TextView titleView;
+    @Bind(R.id.releasedView) TextView releasedView;
+    @Bind(R.id.starText) TextView starText;
+    @Bind(R.id.overviewView) TextView overviewText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,13 +33,7 @@ public class movieDetails extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        ImageView backdrop = (ImageView) findViewById(R.id.backdropView);
-        ImageView poster = (ImageView) findViewById(R.id.posterView);
-        TextView titleView = (TextView) findViewById(R.id.titleView);
-        TextView releasedView = (TextView) findViewById(R.id.releasedView);
-        TextView starText = (TextView) findViewById(R.id.starText);
-        TextView overviewText = (TextView) findViewById(R.id.overviewView);
+        ButterKnife.bind(this);
 
         try {
             JSONObject movieJSON;
@@ -41,15 +45,11 @@ public class movieDetails extends AppCompatActivity {
 
             Picasso.with(this)
                     .load(TmdbApi.IMG_BASE_URL + TmdbApi.FULL_IMG_SIZE + backdropURI)
-                    .fit()
-                    .into(backdrop);
+                    .fit().into(backdrop);
 
             Picasso.with(this)
                     .load(TmdbApi.IMG_BASE_URL + TmdbApi.FULL_IMG_SIZE + posterURI)
-                    .fit()
-                    .into(poster);
-
-
+                    .fit().into(poster);
 
             titleView.setText(movieJSON.getString(TmdbApi.JSON_MOVIE_TITLE));
             releasedView.setText((movieJSON.getString(TmdbApi.JSON_MOVIE_RELEASE_DATE)));
