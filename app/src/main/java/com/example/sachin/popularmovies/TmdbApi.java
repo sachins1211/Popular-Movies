@@ -3,9 +3,7 @@ package com.example.sachin.popularmovies;
 
 public class TmdbApi {
 
-
-    public static final String API_KEY = "ADD YOUR KEY HERE";
-
+    public static String API_KEY = ApiKey.TMDB_API_KEY;
     public static String SORT_BY = "popularity.desc";
     public static final int MIN_VOTES = 250;
     public static final String BASE_URL = "http://api.themoviedb.org/3/discover/movie?";
