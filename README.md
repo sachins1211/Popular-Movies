@@ -10,3 +10,6 @@ To use this app, TMDb API is required. You can get it by registering on The Movi
 Without API this application won't work.
 
 So, in order to use this app navigate to __"ApiKey.java"__ class and assign your TMDb API with the variable named __"TMDB_API_KEY"__.
+
+##Video
+![alt tag](https://github.com/sachins1211/Popular-Movies-P1/blob/master/app_screen.gif)
