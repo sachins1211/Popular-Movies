@@ -4,9 +4,9 @@ Upon launch, user is presented with grid arrangement of movie posters, a tap on 
 additional information like plot synopsis, movie posters, rating and release date of the movie.
 The user can sort the list of movies on basis of Most Popular or Highest Rated movies.
 
-#Application Setup
+##Application Setup
 To use this app, TMDb API is required. You can get it by registering on The Movie Database site.
 
 Without API this application won't work.
 
-So, in order to use this app navigate to "TmdbApi.java" class and assign your TMDb API with the variable named "API_KEY".
+So, in order to use this app navigate to __"ApiKey.java"__ class and assign your TMDb API with the variable named __"TMDB_API_KEY"__.
