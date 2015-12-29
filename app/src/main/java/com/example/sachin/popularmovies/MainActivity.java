@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     SwipeRefreshLayout mSwipeRefreshLayout;
     gridAdapter gridAdapter;
     JSONArray main;
+    private int page=1;
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
@@ -137,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
             gridAdapter = new gridAdapter(this);
 
             gridView.setAdapter(gridAdapter);
+
             update();
 
             mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -199,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 URL url = new URL(TmdbApi.BASE_URL + "sort_by=" + TmdbApi.SORT_BY
-                        + "&vote_count.gte=" + TmdbApi.MIN_VOTES + "&api_key=" + TmdbApi.API_KEY);
+                        + "&vote_count.gte=" + TmdbApi.MIN_VOTES + "&api_key=" + TmdbApi.API_KEY+"&page="+page);
 
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");

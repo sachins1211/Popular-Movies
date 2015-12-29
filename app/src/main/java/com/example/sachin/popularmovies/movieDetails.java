@@ -37,7 +37,6 @@ public class movieDetails extends AppCompatActivity {
 
         try {
             JSONObject movieJSON;
-
             movieJSON = new JSONObject(getIntent().getStringExtra(TmdbApi.JSON_TAG));
 
             final String backdropURI = movieJSON.getString(TmdbApi.JSON_BACKDROP_PATH);
@@ -48,7 +47,7 @@ public class movieDetails extends AppCompatActivity {
                     .fit().into(backdrop);
 
             Picasso.with(this)
-                    .load(TmdbApi.IMG_BASE_URL + TmdbApi.FULL_IMG_SIZE + posterURI)
+                    .load(TmdbApi.IMG_BASE_URL + TmdbApi.SMALL_IMG_SIZE + posterURI)
                     .fit().into(poster);
 
             titleView.setText(movieJSON.getString(TmdbApi.JSON_MOVIE_TITLE));

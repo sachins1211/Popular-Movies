@@ -1,6 +1,7 @@
 package com.example.sachin.popularmovies;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -44,6 +45,7 @@ public class gridAdapter extends BaseAdapter {
 
             imageView = new ImageView(mContext);
             imageView.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.MATCH_PARENT, 450));
+          //  imageView.setBackgroundResource(android.R.drawable.picture_frame);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
 
