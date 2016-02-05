@@ -54,6 +54,6 @@ public class movieReview {
 
     @Override
     public String toString() {
-        return "ClassPojo [id = " + id + ", results = " + results + ", page = " + page + ", total_pages = " + total_pages + ", total_results = " + total_results + "]";
+        return this.toString();
     }
 }

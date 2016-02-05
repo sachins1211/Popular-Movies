@@ -14,7 +14,7 @@ import android.util.Log;
 public class MoviesProvider extends ContentProvider {
     private static final String LOG_TAG = MoviesProvider.class.getSimpleName();
     private static final UriMatcher sUriMatcher = buildUriMatcher();
-    private favouritesSqliteHelper mOpenHelper;
+    private MoviesDBHelper mOpenHelper;
 
     // Codes for the UriMatcher //////
     private static final int FLAVOR = 100;
@@ -36,7 +36,7 @@ public class MoviesProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        mOpenHelper = new favouritesSqliteHelper(getContext());
+        mOpenHelper = new MoviesDBHelper(getContext());
 
         return true;
     }

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -19,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sachin.popularmovies.API_KEY.ApiKey;
-import com.example.sachin.popularmovies.database.favouritesSqliteHelper;
+import com.example.sachin.popularmovies.database.MoviesDBHelper;
 import com.example.sachin.popularmovies.modal.movieGeneralModal;
 import com.example.sachin.popularmovies.modal.review.Results;
 import com.example.sachin.popularmovies.modal.review.movieReview;
@@ -43,9 +42,10 @@ public class movieDetailFragment extends Fragment {
     private LinearLayout youtubeViewHolder;
     private FloatingActionButton shareYoutube;
     private String shareYoutubeID;
-    private FloatingActionButton fab;
-    private CollapsingToolbarLayout collapsingToolbarLayout;
+    public FloatingActionButton fab;
     private TextView reviewUser;
+    Toast mToast;
+
 
 
     public movieDetailFragment() {
@@ -60,7 +60,6 @@ public class movieDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
     }
 
     @Override
@@ -70,7 +69,12 @@ public class movieDetailFragment extends Fragment {
         if (savedInstanceState != null) {
             this.moviegeneralModal = (movieGeneralModal) savedInstanceState.getSerializable("DATA");
         }
+        MoviesDBHelper db = new MoviesDBHelper(getContext());
+
         updateGeneralUI(rootView);
+        if(db.hasObject(moviegeneralModal.getmId())){
+            fab.setImageResource(R.drawable.favorite2);
+        }
         return rootView;
     }
 
@@ -88,13 +92,14 @@ public class movieDetailFragment extends Fragment {
         this.moviegeneralModal = moviegeneralModal;
     }
 
+
     private void updateGeneralUI(View v) {
         titleText = (TextView) v.findViewById(R.id.titleText);
         voteText = (TextView) v.findViewById(R.id.rating);
         calendarText = (TextView) v.findViewById(R.id.calendar);
         peoplesText = (TextView) v.findViewById(R.id.people);
         titleImage = (ImageView) v.findViewById(R.id.titleimg);
-       // backdropImage=(ImageView) v.findViewById(R.id.backdropView);
+        backdropImage=(ImageView) v.findViewById(R.id.backdrop);
         plotSynopsis = (TextView) v.findViewById(R.id.plotsynopsis);
         reviewText = (TextView) v.findViewById(R.id.reviewText);
         youtubeViewHolder = (LinearLayout) v.findViewById(R.id.youtubelayout);
@@ -116,11 +121,11 @@ public class movieDetailFragment extends Fragment {
         Picasso.with(getContext())
                 .load(moviegeneralModal.getThumbnail())
                 .fit().into(titleImage);
-   /*     Picasso.with(getContext())
+        Picasso.with(getContext())
                 .load(moviegeneralModal.getBackdrop())
                 .fit().into(backdropImage);
 
-*/
+
 
 
         getTrailer(youtubeViewHolder);
@@ -137,30 +142,52 @@ public class movieDetailFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveToDatabase();
+                MoviesDBHelper db = new MoviesDBHelper(getContext());
+
+                if(!db.hasObject(moviegeneralModal.getmId())){
+                    saveToDatabase();
+                } else {
+                    removeDatabase();
+                }
             }
         });
+
     }
 
     protected void saveToDatabase() {
-        favouritesSqliteHelper db = new favouritesSqliteHelper(getContext());
+        MoviesDBHelper db = new MoviesDBHelper(getContext());
         if (!reviewText.getText().toString().contains("Sorry")) {
             moviegeneralModal.setmReview(reviewText.getText().toString());
         }
         boolean b = db.insertMovie(moviegeneralModal);
 
         if (b) {
-            Toast.makeText(getContext(), "Added to Favourites", Toast.LENGTH_SHORT).show();
+            if(mToast != null)
+            {
+                mToast.cancel();
+            }
+            mToast=Toast.makeText(getContext(), "Added to Favourite!", Toast.LENGTH_SHORT);
+            mToast.show();
             fab.setImageResource(R.drawable.favorite2);
         }
 
-        else {
-            Toast.makeText(getContext(), "Seems Already in Favourites!", Toast.LENGTH_SHORT).show();
-        }
     }
+    protected void removeDatabase(){
+        MoviesDBHelper db = new MoviesDBHelper(getContext());
+        if(mToast != null)
+        {
+            mToast.cancel();
+        }
+        mToast=Toast.makeText(getContext(), "Removed from Favourite!", Toast.LENGTH_SHORT);
+        mToast.show();
+        fab.setImageResource(R.drawable.favorite);
+        db.deleteMovie(moviegeneralModal.getTitle());
+    }
+
+
     protected void shareYoutubeIntent(String shareYoutubeID) {
         String url = "http://www.youtube.com/watch?v=" + shareYoutubeID;
-        String shareMsg = "Hey! There's a film named " + moviegeneralModal.getTitle() + ". It looks awesome!. \nThe trailer link is- " + url + "\nHave a look at it!";
+        String shareMsg = "Hey! There's a film named " +"'"+ moviegeneralModal.getTitle()+"'" + ". It looks awesome!. \nThe trailer link is- " + url + "\nHave a look at it!";
         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
         sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Popular Movies - Android App");
@@ -247,6 +274,7 @@ public class movieDetailFragment extends Fragment {
             }
         });
     }
+
 
     protected void getMovieReview(final View review) {
         MovieAPI mMovieAPI = NetworkAPI.createService(MovieAPI.class);

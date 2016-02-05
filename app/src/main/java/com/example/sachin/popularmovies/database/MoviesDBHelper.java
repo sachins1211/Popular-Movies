@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class favouritesSqliteHelper extends SQLiteOpenHelper {
+public class MoviesDBHelper extends SQLiteOpenHelper {
     public static final String KEY_ROWID = "id";
     public static final String KEY_THUMBNAIL = "mThumbnail";
     public static final String KEY_MVOTE = "mVote";
@@ -21,6 +21,7 @@ public class favouritesSqliteHelper extends SQLiteOpenHelper {
     public static final String KEY_RELEASEDATE = "mReleaseDate";
     public static final String KEY_OVERVIEW = "mOverview";
     public static final String KEY_REVIEW = "mReview";
+    public static final String KEY_BACKDROP = "mbackdrop";
     public static final String SQLITE_TABLE = "movies";
     private static final String LOG_TAG = "moviesDB";
     private static final String DATABASE_CREATE =
@@ -32,10 +33,11 @@ public class favouritesSqliteHelper extends SQLiteOpenHelper {
                     KEY_MVOTE + "," +
                     KEY_OVERVIEW + "," +
                     KEY_REVIEW + "," +
-                    KEY_RELEASEDATE + "" +
+                    KEY_RELEASEDATE + "," +
+                    KEY_BACKDROP +""+
                     " );";
 
-    public favouritesSqliteHelper(Context context) {
+    public MoviesDBHelper(Context context) {
         super(context, LOG_TAG, null, 1);
     }
 
@@ -57,17 +59,44 @@ public class favouritesSqliteHelper extends SQLiteOpenHelper {
         values.put(KEY_ROWID, Integer.parseInt(movieGeneralModals.getmId()));
         values.put(KEY_THUMBNAIL, movieGeneralModals.getThumbnail());
         values.put(KEY_TITLE, movieGeneralModals.getTitle());
+        values.put(KEY_REVIEW, movieGeneralModals.getmReview());
         values.put(KEY_PEOPLE, movieGeneralModals.getmPeople());
         values.put(KEY_MVOTE, movieGeneralModals.getmVote());
         values.put(KEY_OVERVIEW, movieGeneralModals.getmOverview());
         values.put(KEY_RELEASEDATE, movieGeneralModals.getmReleaseDate());
-        values.put(KEY_REVIEW, movieGeneralModals.getmReview());
+        values.put(KEY_BACKDROP, movieGeneralModals.getBackdrop());
 
         boolean createSuccessful = db.insert(SQLITE_TABLE, null, values) > 0;
         db.close();
         return createSuccessful;
     }
 
+    public boolean hasObject(String id) {
+        SQLiteDatabase db = getWritableDatabase();
+        String selectString = "SELECT * FROM " + SQLITE_TABLE+ " WHERE " + KEY_ROWID+ " =?";
+        Cursor cursor = db.rawQuery(selectString, new String[] {id});
+        boolean hasObject = false;
+        if(cursor.moveToFirst()){
+            hasObject = true;
+            int count = 0;
+            while(cursor.moveToNext()){
+                count++;
+            }
+        }
+        cursor.close();
+        db.close();
+        return hasObject;
+    }
+
+
+    public Boolean deleteMovie(String id)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+            db.delete(SQLITE_TABLE, "mTitle = ?",new String[]{id});
+        return  null;
+
+    }
 
     public List<movieGeneralModal> getAllMovies() {
         List<movieGeneralModal> movieList = new ArrayList<>();
@@ -78,7 +107,7 @@ public class favouritesSqliteHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                movieGeneralModal movie = new movieGeneralModal(cursor.getString(2), cursor.getString(1), cursor.getString(4), cursor.getString(0), cursor.getString(3), cursor.getString(7), cursor.getString(5));
+                movieGeneralModal movie = new movieGeneralModal(cursor.getString(2), cursor.getString(1),cursor.getString(8), cursor.getString(4), cursor.getString(0), cursor.getString(3), cursor.getString(7), cursor.getString(5));
                 movieList.add(movie);
             } while (cursor.moveToNext());
         }

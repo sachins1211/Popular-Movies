@@ -1,5 +1,6 @@
 package com.example.sachin.popularmovies;
 
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,7 +20,7 @@ import android.widget.Toast;
 
 import com.example.sachin.popularmovies.adapter.movieGeneralAdapter;
 import com.example.sachin.popularmovies.API_KEY.ApiKey;
-import com.example.sachin.popularmovies.database.favouritesSqliteHelper;
+import com.example.sachin.popularmovies.database.MoviesDBHelper;
 import com.example.sachin.popularmovies.modal.Results;
 import com.example.sachin.popularmovies.modal.movieGeneral;
 import com.example.sachin.popularmovies.modal.movieGeneralModal;
@@ -92,26 +93,38 @@ public class movieListActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
 
-        if (id == R.id.action_sort_popularity) {
-            FetchMovie((RecyclerView) recyclerView, MOST_POPULAR);
-            return true;
+        switch (item.getItemId()) {
+            case R.id.menu:
+                showChoices();
+                break;
         }
-        else if (id == R.id.action_sort_rating){
-            FetchMovie((RecyclerView) recyclerView, HIGHLY_RATED);
-            return true;
-        }
-        else if (id == R.id.action_favorite){
-            FetchMovie((RecyclerView) recyclerView, FLAG_FAV);
-        }
+        return true;
+    }
+    private void showChoices() {
 
-        return super.onOptionsItemSelected(item);
-
+        choice = new AlertDialog.Builder(this)
+                .setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int item) {
+                        switch (item) {
+                            case 0:
+                                FetchMovie((RecyclerView) recyclerView, MOST_POPULAR);
+                                break;
+                            case 1:
+                                FetchMovie((RecyclerView) recyclerView, HIGHLY_RATED);
+                                break;
+                            case 2:
+                                FetchMovie((RecyclerView) recyclerView, FLAG_FAV);
+                                break;
+                        }
+                        choice.dismiss();
+                    }
+                }).setInverseBackgroundForced(true).setTitle("Choose").setIcon(R.drawable.sort2)
+                .show();
     }
 
     protected void FetchFavourites(@NonNull final RecyclerView recyclerView) {
-        favouritesSqliteHelper db = new favouritesSqliteHelper(getApplicationContext());
+        MoviesDBHelper db = new MoviesDBHelper(getApplicationContext());
         List<movieGeneralModal> movieGeneralModals = db.getAllMovies();
         if (movieGeneralModals.size() > 0)
             attachAdapter(recyclerView, movieGeneralModals);
@@ -154,7 +167,7 @@ public class movieListActivity extends AppCompatActivity {
         if (!mTwoPane) {
             number = width / 250;
         } else {
-            number = (width / 2) / 250;
+            number = (width / 2)/350 ;
         }
         GridLayoutManager lLayout = new GridLayoutManager(getApplicationContext(), number);
         RecyclerView rView = recyclerView;
@@ -170,7 +183,7 @@ public class movieListActivity extends AppCompatActivity {
         List<movieGeneralModal> movieGeneralModals = new ArrayList<movieGeneralModal>();
         Results[] mResult = mMoviegeneral.getResults();
         for (Results result : mResult) {
-            movieGeneralModal obj = new movieGeneralModal(result.getTitle(), result.getPoster_path(), result.getVote_average()
+            movieGeneralModal obj = new movieGeneralModal(result.getTitle(), result.getPoster_path(),result.getBackdrop_path(), result.getVote_average()
                     , result.getId(), result.getVote_count(), result.getRelease_date(), result.getOverview());
             movieGeneralModals.add(obj);
         }

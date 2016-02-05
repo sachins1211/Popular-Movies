@@ -46,6 +46,6 @@ public class movieGeneral implements Serializable {
 
     @Override
     public String toString() {
-        return "ClassPojo [results = " + results + ", page = " + page + ", total_pages = " + total_pages + ", total_results = " + total_results + "]";
+        return this.toString();
     }
 }

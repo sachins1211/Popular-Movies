@@ -41,7 +41,7 @@ public class movieGeneralAdapter extends RecyclerView.Adapter<movieGeneralHolder
     public void onBindViewHolder(movieGeneralHolder holder, final int position) {
         holder.movieName.setText(mMovieGeneralModal.get(position).getTitle());
         holder.movieAvg.setText(mMovieGeneralModal.get(position).getmVote());
-        holder.calendar.setText(mMovieGeneralModal.get(position).getmReleaseDate().substring(0,4));
+        holder.calendar.setText(mMovieGeneralModal.get(position).getmReleaseDate().substring(0, 4));
 
         Picasso.with(context)
                 .load(mMovieGeneralModal.get(position).getThumbnail())

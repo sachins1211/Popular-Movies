@@ -74,6 +74,6 @@ public class Results {
 
     @Override
     public String toString() {
-        return "ClassPojo [site = " + site + ", id = " + id + ", iso_639_1 = " + iso_639_1 + ", name = " + name + ", type = " + type + ", key = " + key + ", size = " + size + "]";
+        return this.toString();
     }
 }

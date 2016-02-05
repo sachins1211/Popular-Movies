@@ -44,6 +44,6 @@ public class Results {
 
     @Override
     public String toString() {
-        return "ClassPojo [content = " + content + ", id = " + id + ", author = " + author + ", url = " + url + "]";
+        return this.toString();
     }
 }

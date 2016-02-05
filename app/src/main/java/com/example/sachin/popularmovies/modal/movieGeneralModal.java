@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class movieGeneralModal implements Serializable {
     String mTitle;
     String mThumbnail;
-    //String mBackdrop;
+    String mBackdrop;
     String mVote;
     String mId;
     String mPeople;
@@ -13,9 +13,9 @@ public class movieGeneralModal implements Serializable {
     String mOverview;
     String mReview;
 
-    public movieGeneralModal(String mTitle, String mThumbnail, String mVote, String mId, String mPeople, String mReleaseDate, String mOverview) {
+    public movieGeneralModal(String mTitle, String mThumbnail,String mBackdrop, String mVote, String mId, String mPeople, String mReleaseDate, String mOverview) {
         this.mThumbnail = mThumbnail;
-        //this.mBackdrop=mBackdrop;
+        this.mBackdrop=mBackdrop;
         this.mTitle = mTitle;
         this.mVote = mVote;
         this.mId = mId;
@@ -48,13 +48,13 @@ public class movieGeneralModal implements Serializable {
         String url = "http://image.tmdb.org/t/p/w300/" + this.mThumbnail;
         return url;
     }
-/*
+
     public String getBackdrop(){
         String url ="http://image.tmdb.org/t/p/w780/"+this.mBackdrop;
         return url;
     }
 
-*/
+
     public String getmId() {
         return this.mId;
     }

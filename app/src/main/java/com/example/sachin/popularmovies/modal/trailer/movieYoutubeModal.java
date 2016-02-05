@@ -25,6 +25,6 @@ public class movieYoutubeModal {
 
     @Override
     public String toString() {
-        return "ClassPojo [id = " + id + ", results = " + results + "]";
+        return this.toString();
     }
 }

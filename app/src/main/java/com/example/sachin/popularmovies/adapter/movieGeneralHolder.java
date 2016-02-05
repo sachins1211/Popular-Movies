@@ -25,6 +25,8 @@ public class movieGeneralHolder extends RecyclerView.ViewHolder implements View.
         moviePhoto = (ImageView) itemView.findViewById(R.id.moviePhoto);
         calendar=(TextView) itemView.findViewById(R.id.calendar);
 
+
+
     }
 
     @Override
