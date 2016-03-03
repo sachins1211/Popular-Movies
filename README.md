@@ -4,7 +4,7 @@ This app uses TMDb API to fetch movies. Upon launch, user is presented with grid
 
 The user can search a movie by Title, mark a movie as favorite and share the movie trailer with friends!
 
-## Get it on Google Play
+## Available on Google Play
 
 https://play.google.com/store/apps/details?id=com.sachin.popularmovies
 
