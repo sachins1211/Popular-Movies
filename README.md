@@ -6,7 +6,9 @@ The user can search a movie by Title, mark a movie as favorite and share the mov
 
 ## Available on Google Play
 
-https://play.google.com/store/apps/details?id=com.sachin.popularmovies
+<a href="https://play.google.com/store/apps/details?id=com.sachin.popularmovies">
+<img alt="Get it on Google Play" src="http://steverichey.github.io/google-play-badge-svg/img/en_get.svg" />
+</a>
 
 ## Application Setup
 
