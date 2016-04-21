@@ -19,3 +19,15 @@ Without API this application won't work.
 So, in order to use this app navigate to "API_KEY" folder and then put you TMDb API key in the variable
 "TMDB_API_KEY" in the "ApiKey.java" file
 
+## Screenshots
+
+![picture alt](https://github.com/sachins1211/Popular-Movies/blob/master/pic1.png)
+
+![picture alt](https://github.com/sachins1211/Popular-Movies/blob/master/pic2.png)
+
+![picture alt](https://github.com/sachins1211/Popular-Movies/blob/master/pic3.png)
+
+![picture alt](https://github.com/sachins1211/Popular-Movies/blob/master/7tab.png "7 inch tablet")
+
+![picture alt](https://github.com/sachins1211/Popular-Movies/blob/master/10tab.png "10 inch tablet")
+
