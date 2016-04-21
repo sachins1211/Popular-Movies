@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
                 if (!searchView.isIconified()) {
                     searchView.setIconified(true);
+                    movieGeneralModals3.clear();
                     queryTMDb(query);
                 }
                 myActionMenuItem.collapseActionView();
